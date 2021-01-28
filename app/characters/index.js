@@ -1,9 +1,10 @@
 const express = require('express');
 const _ = require('lodash');
-
-const { fetchAllCharacters, fetchById } = require('./services');
-
+const services = require('./services');
+const middleware = require('./middleware');
 var router = express.Router();
+
+const { fetchAllCharacters, fetchById } = services();
 
 router.get('/', async (req, res) => {
   try {
@@ -12,11 +13,13 @@ router.get('/', async (req, res) => {
     const charById = _.map(data.results, 'id');
     return res.send(charById);
   } catch (e) {
-    return res.status(500).send('Error', e);
+    return res.status(500).json({
+      message: `Error ${e}`
+    })
   }
 });
 
-router.get('/:characterId', async (req, res) => {
+router.get('/:characterId', middleware.isValidId, async (req, res) => {
   try {
     const characterId = req.params.characterId;
     const response = await fetchById(characterId);
@@ -24,7 +27,9 @@ router.get('/:characterId', async (req, res) => {
     const character = _.pick(data.results[0], ['id', 'name', 'description'])
     return res.send(character);
   } catch (e) {
-    return res.status(500).send('Error', e);
+    return res.status(404).json({
+      message: 'Not Found'
+    })
   }
 })
 
