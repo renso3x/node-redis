@@ -8,7 +8,8 @@ const { fetchAllCharacters, fetchById } = services();
 
 router.get('/', async (req, res) => {
   try {
-    const response = await fetchAllCharacters();
+    const { limit, offset } = req.query;
+    const response = await fetchAllCharacters(limit, offset);
     const { data } = await response.json();
     const charById = _.map(data.results, 'id');
     return res.send(charById);
