@@ -4,7 +4,7 @@
   "description": "1. A running server that can be accessed on http://localhost:8080/ hosting the endpoints from Part 1 & 2 (feel free to use 3rd party libraries). The application should be written in Node.js/ Golang/ TypeScript. Please share your work through Github. 2. Well tested code through unit tests 3. Elaboration on your caching strategy in Part 1 4. API keys/ secrets should not be stored in the code, please send us a file separately in your email submission 5. Your project should contain a README.md with instructions on how to - install dependencies - use any config file or environment variables to run your application - build and run your application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha app/**/*.test.js",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -18,9 +18,15 @@
     "lodash": "^4.17.20",
     "md5": "^2.3.0",
     "node-fetch": "^2.6.1",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "sinon": "^9.2.4"
   }
 }

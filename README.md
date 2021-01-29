@@ -5,7 +5,11 @@
 docker-compose up
 ```
 
-Navigate to http://localhost:8080/ to show swagger docs.
+Navigate to http://localhost:8080/api-docs to open the swagger docs.
+
+## Caching Strategy
+
+Used: `Redis`
 
 
 1. A running server that can be accessed on http://localhost:8080/ hosting the endpoints

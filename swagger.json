@@ -1,0 +1,17 @@
+{
+  "definition": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Marvel Hero API",
+      "description": "This is a sample Marvel API server.\n",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080/",
+        "description": "Marvel API"
+      }
+    ]
+  },
+  "apis": ["./app/**/*.js"]
+}

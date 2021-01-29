@@ -1,22 +1,30 @@
 const _ = require('lodash');
 const services = require('./services');
+const config = require('../config')
 const client = require('../lib/redis-client');
 
-const { fetchAllCharacters, fetchById } = services();
-
 module.exports = {
+  /**
+   * controller for all marvel heroes route
+   * @param {integer} limit
+   * @param {integer} offset
+   * @return {Promise}
+   */
   getAllCharacters: async (limit, offset) => {
-    const response = await fetchAllCharacters(limit, offset);
-    const { data } = await response.json();
-    const charById = _.map(data.results, 'id');
-    client.setex(`page:${offset}`, 5 * 60, JSON.stringify(charById));
+    const response = await services.fetchAllCharacters(limit, offset);
+    const charById = _.map(response, 'id');
+    client.setex(`page:${offset}-${limit}`, config.CACHE_POLICY, JSON.stringify(charById));
     return charById;
   },
+  /**
+   * controller for marvel hero id route
+   * @param {integer} characterId
+   * @return {Promise}
+   */
   findById: async (characterId) => {
-    const response = await fetchById(characterId);
-    const { data } = await response.json();
-    const character = _.pick(data.results[0], ['id', 'name', 'description']);
-    client.setex(characterId, 5 * 60, JSON.stringify(character));
+    const response = await services.fetchById(characterId);
+    const character = _.pick(response, ['id', 'name', 'description']);
+    client.setex(characterId, config.CACHE_POLICY, JSON.stringify(character));
     return character;
   }
 }

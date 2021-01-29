@@ -14,7 +14,7 @@ module.exports = {
     next();
   },
   cachedData: async (req, res, next) => {
-    client.get(`page:${req.query.offset}`, (err, result) => {
+    client.get(`page:${req.query.offset}-${req.query.limit}`, (err, result) => {
       if (err) {
         return res.status(500).send(err);
       }
