@@ -6,7 +6,7 @@
 ```
 
 ## Run Project
-
+Please download the .env that is attached in your email
 ```
 docker-compose up
 ```
