@@ -1,4 +1,3 @@
-
 module.exports = {
   MARVEL_ENDPOINT: `${process.env.MARVEL_ENDPOINT}/v1/public`,
   ts: process.env.ts,
