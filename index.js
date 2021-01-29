@@ -10,8 +10,13 @@ app.get('/', (req, res) => res.send('Up and running... here the swagger endpoint
 
 app.use('/characters', characterRoute);
 
-app.use((error, req, res, next) => {
-  return res.status(500).json({ error: error.toString() });
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+      message: err.message,
+      error: {}
+  });
 });
 
 app.listen(PORT, () => {

@@ -1,15 +1,25 @@
-app:
-  build: ./
-  volumes:
-    - ./:/var/www/app
-  ports:
-    - 8080:8080
-  environment:
-    - NODE_ENV=development
-    - PORT=8080
-    - MARVEL_ENDPOINT=https://gateway.marvel.com
-    - ts=1
-    - MARVEL_API_KEY=f77d7d34eaf5b6a881f46028c6fa0413
-    - MARVEL_PRIVATE_KEY=675608ba02c04b890a7c8b58c1942447418d6337
-  command:
-    sh -c 'yarn && yarn start'
+version: '3'
+
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
+
+  app:
+    build: ./
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 8080:8080
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - MARVEL_ENDPOINT=https://gateway.marvel.com
+      - ts=1
+      - MARVEL_API_KEY=f77d7d34eaf5b6a881f46028c6fa0413
+      - MARVEL_PRIVATE_KEY=675608ba02c04b890a7c8b58c1942447418d6337
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command:
+      sh -c 'yarn && yarn dev'

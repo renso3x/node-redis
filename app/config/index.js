@@ -4,4 +4,8 @@ module.exports = {
   ts: process.env.ts,
   MARVEL_API_KEY: process.env.MARVEL_API_KEY,
   MARVEL_PRIVATE_KEY: process.env.MARVEL_PRIVATE_KEY,
+  REDIS_URL: {
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT
+  },
 }
